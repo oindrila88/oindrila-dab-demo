@@ -1,6 +1,6 @@
 # This workflow validates, deploys and runs the specified bundle
 # within development target named "dev".
-name: 'dev_deployment'
+name: 'Deploy to Dev Databricks'
 
 # Ensure that only a single job or workflow using the same concurrency group runs at a time
 concurrency: 1
@@ -8,29 +8,33 @@ concurrency: 1
 # Trigger this workflow whenever a pull request is pushed to the repo's dev branch
 on:
   push:
-    branches:
-      - dev
-    paths:
-      - 'oc_dab/**'
+    branches: [dev]
+  release:
+    types: [published]
 
 jobs:
   deploy:
-    name: 'Deploy Bundle'
     runs-on: ubuntu-latest
+    environment: ${{ github.event_name == 'release' && 'dev' }}
 
     steps:
       # Check out this repo so that this workflow can access it
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      # Download the Databricks CLI
-      # See https://github.com/databricks/setup-cli
-      - uses: databricks/setup-cli@dev
+      # Download and Run the Databricks CLI
+      - name: Install Databricks CLI
+        run: pip install databricks-cli
+
+      # Validate the Databricks Bundle
+      - name: Validate Databricks Bundle
+        run: databricks bundle validate
+        env:
+          DATABRICKS_TOKEN: ${{ secrets.DEV_DBR_TOKEN }}
+          DATABRICKS_HOST: ${{ secrets.DEV_DBR_HOST }}
 
       # Deploy the bundle to the "dev" target as defined in the bundle's settings file
-      - run: databricks-bundle-deploy
-        working-directory: oc_dab
+      - name: Deploy Databricks Bundle
+        run: databricks bundle deploy --target ${{ github.event_name == 'release' && 'dev' }}
         env:
-          DATABRICKS_TOKEN: ${{secrets.DBR_TOKEN}}
-          DATABRICKS_BINDLE_ENV: dev
-    
-  
+          DATABRICKS_TOKEN: ${{ secrets.DEV_DBR_TOKEN }}
+          DATABRICKS_HOST: ${{ secrets.DEV_DBR_HOST }}
