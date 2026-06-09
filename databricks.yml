@@ -1,0 +1,12 @@
+bundle:
+  name: oc_dab
+
+include:
+  - resources/jobs/*.yml
+  - targets/*.yml
+
+permissions:
+  - group_name: data_engg_group
+    level: CAN_MANAGE
+
+    

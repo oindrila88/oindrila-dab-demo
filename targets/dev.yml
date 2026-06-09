@@ -1,0 +1,15 @@
+targets:
+  dev:
+    mode: development
+    default: true
+    workspace:
+      host: https://dbc-e23f01cd-de6d.cloud.databricks.com/
+    permissions:
+      - group_name: data_engg_group
+        level: CAN_MANAGE
+
+    presets:
+      name_prefix: (dev ${workspace.current_user.short_name})
+
+    include:
+      - config/dev_var.yml

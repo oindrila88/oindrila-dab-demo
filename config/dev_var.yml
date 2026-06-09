@@ -1,0 +1,20 @@
+variables:
+    env:
+        description: This is the DEV environment
+        default: dev
+
+    bronze_root_path:
+        description: This is the Bronze Layer Root Path in DEV environment
+        default: /Volumes/dev_oc_dab/dev_bronze/volume_bronze/
+
+    silver_root_path:
+        description: This is the Silver Layer Root Path in DEV environment
+        default: /Volumes/dev_oc_dab/dev_silver/volume_silver/
+
+    gold_root_path:
+        description: This is the Gold Layer Root Path in DEV environment
+        default: /Volumes/dev_oc_dab/dev_gold/volume_gold/
+
+    csv_file_format:
+        description: This is the CSV File Format
+        default: csv
