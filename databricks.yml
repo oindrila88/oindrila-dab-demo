@@ -1,6 +1,18 @@
 bundle:
   name: oc_dab
 
+variables:
+  env:
+    description: This holds the value of the environment
+  bronze_root_path:
+    description: This is the Bronze Layer Root Path in the environment
+  silver_root_path:
+    description: This is the Silver Layer Root Path in the environment
+  gold_root_path:
+    description: This is the Gold Layer Root Path in the environment
+  csv_file_format:
+    description: This is the CSV File Format
+
 include:
   - resources/jobs/*.yml
   - targets/*.yml
