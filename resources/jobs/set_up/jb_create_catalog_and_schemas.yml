@@ -1,0 +1,14 @@
+resources:
+  jobs:
+    jb_create_catalog_and_schemas:
+      name: jb_create_catalog_and_schemas
+      tasks:
+        - task_key: tsk_set_up
+          notebook_task:
+            notebook_path: ../../notebooks/common/ddl/nbk_set_up.ipnyb
+            base_parameters:
+              env: "{{var.environment}}"
+            source: WORKSPACE
+      queue:
+        enabled: true
+      performance_target: PERFORMANCE_OPTIMIZED

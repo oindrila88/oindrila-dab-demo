@@ -1,0 +1,16 @@
+resources:
+  jobs:
+    jb_load_to_bronze:
+      name: jb_load_to_bronze
+      tasks:
+        - task_key: tsk_load_to_bronze
+          notebook_task:
+            notebook_path: ../../notebooks/bronze/nbk_brnz_read_person.ipnyb
+            base_parameters:
+              bronze_root_path: "{{var.bronze_root_path}}"
+              table_name: "{{var.table_name}}"
+              csv_file_formart: "{{csv_file_formart}}"
+            source: WORKSPACE
+      queue:
+        enabled: true
+      performance_target: PERFORMANCE_OPTIMIZED

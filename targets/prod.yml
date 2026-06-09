@@ -1,0 +1,11 @@
+targets:
+  prod:
+    default: false
+    workspace:
+      host: https://dbc-fabed7ba-6bdf.cloud.databricks.com/
+    permissions:
+      - group_name: data_engg_group
+        level: CAN_RUN
+
+    include:
+      - config/prod_var.yml
