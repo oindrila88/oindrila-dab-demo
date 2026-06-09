@@ -11,5 +11,6 @@ targets:
     presets:
       name_prefix: (dev ${workspace.current_user.short_name})
 
-    include:
+    variables:
+      include:
       - config/dev_var.yml
