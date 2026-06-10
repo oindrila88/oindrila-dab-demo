@@ -28,7 +28,7 @@ resources:
             node_type_id: ${var.cluster_node_type}
             spark_version: ${var.spark_version}
             # Enable Autoscaling Bounded by Environment Variables
-            autoscaling:
+            autoscale:
               min_workers: ${var.min_worker}
               max_workers: ${var.max_worker}
 
