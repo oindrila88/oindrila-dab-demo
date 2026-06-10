@@ -27,8 +27,8 @@ jobs:
         # Installs the Databricks CLI natively on the Linux VM i.e., runner, to execute Bundles commands
         uses: databricks/setup-cli@dev
           # To download a particular version of Databricks CLI executables, the version, such as "1.2.1", is configured as a parameter under the "with" block 
-          with:
-            version: 1.2.1
+        with:
+          version: 1.2.1
 
       # Step 3
       - name: Deploy Databricks Asset Bundles
