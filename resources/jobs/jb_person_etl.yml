@@ -1,7 +1,7 @@
 resources:
   jobs:
     jb_person_etl:
-      name: "[${var.env}] Person ETL Workflow"
+      name: "Person ETL Workflow"
 
       # Limit Parallel Executions of this Workflow
       max_concurrent_runs: 1
