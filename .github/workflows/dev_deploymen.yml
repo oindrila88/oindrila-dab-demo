@@ -1,35 +1,40 @@
-# This workflow validates, deploys, and runs the specified bundle
-# within a development target named "dev".
-name: 'development deployment'
+# Workflow name shown in the GitHub Actions Dashboard
+name: Deploy to Dev Databricks
 
-# Ensure that only a single job or workflow using the same concurrency group
-# runs at a time.
-concurrency: 1
-
-# Trigger this workflow whenever a pull request is pushed to the repo's
-# dev branch.
+# Tells GitHub when to execute this Workflow
 on:
+  # Ensures that this Deployment Workflow only triggers when a successful PUSH is made directly to the 'dev' branch
   push:
     branches:
       - dev
 
+# This overarching section groups all the Tasks in this Workflow
 jobs:
-  deploy:
-    name: 'Deploy bundle'
+  # Identifier for this specific job
+  deploy-to-dev-databricks:
+    # Tells GitHub to run this Job on a Linux Virtual Machine
     runs-on: ubuntu-latest
 
+    # List of sequential steps to execute
     steps:
-      # Check out this repo, so that this workflow can access it.
-      - uses: actions/checkout@v3
+      # Step 1
+      - name: Checkout Code
+        # A built-in GitHub Action that pulls the repository's code into the Linux VM i.e., runner, so that this Workflow can acces the Notebooks and Configuration Files
+        uses: actions/checkout@v4
+        
+      # Step 2
+      - name: Set Up Databricks CLI
+        # Installs the Databricks CLI natively on the Linux VM i.e., runner, to execute Bundles commands
+        uses: databricks/setup-cli@v0.2.1
 
-      # Download the Databricks CLI.
-      # See https://github.com/databricks/setup-cli
-      - uses: databricks/setup-cli@main
-
-      # Deploy the bundle to the "dev" target as defined
-      # in the bundle's settings file.
-      - run: databricks bundle deploy
-        working-directory: .
+      # Step 3
+      - name: Deploy Databricks Asset Bundles
+        # Defines the Environment Variables for Shell to utilize
         env:
-          DATABRICKS_TOKEN: ${{ secrets.DEV_DBR_TOKEN }}
-          DATABRICKS_BUNDLE_ENV: dev
+          # URL to the target Databricks Workspace
+          DATABRICKS_HOST: ${{secrets.DEV_DBR_HOST}}
+          # Secure Authentication Token that grants the Databricks CLI permision to make changes in the target Databricks Workspace
+          DATABRICKS_TOKEN: ${{secrets.DEV_DBR_TOKEN}}
+        # Executes a Terminal command, i.e., "databricks bundle deploy", which reads the "databricks.yml" Configuration file and deploys the Databricks Asset Bundles (DABs) to the specified target environment, i.e., dev
+        run: |
+          databricks bundle deploy -t dev
