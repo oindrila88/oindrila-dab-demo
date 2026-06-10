@@ -20,22 +20,18 @@ resources:
         on_failure: ${var.failure_alert_recipient}
 
         # Customize the Email Body Text Using Databricks Runtime Tokens
-        # Supported Tokens Include - {{JOB_ID}}, {{JOB_NAME}}, {{RUN_ID}}, {{WORKSPACE_URL}}, {{ERROR_MESSAGE}}
+        # Supported Tokens Include - {{job.id}}, {{job.name}}, {{job.run_id}}, {{workspace.url}}, {{ERROR_MESSAGE}}
         custom_body: |
           Hello Team,
 
           The Databricks Workflow execution loop has completed. Please find the details below:
 
           - Environment: ${var.env}
-          - Job ID: [[JOB_ID]]
-          - Job Name: [[JOB_NAME]]
-          - Run ID: [[RUN_ID]]
-          - Execution Link: [[WORKSPACE_URL]]#job/[[JOB_ID]]/run/[[RUN_ID]]
-            
-          ---------------------------------------------------------------------------------------------
-          SYSTEM FAULT SNAPSHOT (Applicable on Failures Only): [[ERROR_MESSAGE]]
-          ---------------------------------------------------------------------------------------------
-
+          - Job ID: {{job.id}}
+          - Job Name: {{job.name}}
+          - Run ID: {{job.run_id}}
+          - Execution Link: {{workspace.url}}#job/{{job.id}}/run/{{job.run_id}}
+          
           Regards,
           Data Engineering Team
 
