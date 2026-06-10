@@ -40,8 +40,10 @@ jobs:
           DATABRICKS_TOKEN: ${{secrets.DEV_DBR_TOKEN}}
         # Executes a Terminal command, i.e., "databricks bundle validate", which reads the "databricks.yml" Configuration file and validates the Databricks Asset Bundles (DABs) to check the syntax, structure, and references of the configuration files before deployment.
         # It is a local dry-run command that ensures that the project is error-free, and, prevents failed deployments to the target Databricks Workspace, i.e., dev
+        # This forces the runner to jump into the root folder before executing the validate command
+        working-directory: ${{github.workspace}} 
         run: |
-          databricks bundle validate -t dev
+          databricks bundle validate
 
       # Step 4
       - name: Deploy Databricks Asset Bundles
