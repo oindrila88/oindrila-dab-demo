@@ -2,8 +2,7 @@ targets:
   prod:
     default: false
     workspace:
-      host: https://dbc-fabed7ba-6bdf.cloud.databricks.com/
+      host: "https://dbc-fabed7ba-6bdf.cloud.databricks.com/"
 
     variables:
-      include:
-        - variables/prod_var.yml
+      include_path: "variables/prod_var.yml"

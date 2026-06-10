@@ -3,11 +3,10 @@ targets:
     mode: development
     default: true
     workspace:
-      host: https://dbc-e23f01cd-de6d.cloud.databricks.com/
+      host: "https://dbc-e23f01cd-de6d.cloud.databricks.com/"
 
     variables:
-      include:
-        - variables/dev_var.yml
+      include_path: "variables/dev_var.yml"
 
     presets:
-      name_prefix: (dev ${workspace.current_user.short_name})
+      name_prefix: "(dev ${workspace.current_user.short_name})"
