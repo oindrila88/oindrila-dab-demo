@@ -1,6 +1,6 @@
 resources:
   jobs:
-    jb_person_etl:
+    jb_person_etl_serverless:
       name: "[${var.env}] Person ETL Workflow Serverless"
 
       # Limit Parallel Executions of this Workflow
