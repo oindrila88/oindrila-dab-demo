@@ -9,7 +9,9 @@ variables:
 
 permissions:
   - user_name: oindrila.chakraborty88@gmail.com
-    level: CAN_MANAGE_RUN
+    level: CAN_MANAGE
+  - user_name: oindrila.chakraborty88@gmail.com
+    level: CAN_RUN
 
 include:
   - resources/*.yml
