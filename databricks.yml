@@ -11,8 +11,4 @@ include:
   - resources/*.yml
   - configs/*.yml
 
-permissions:
-  - group_name: data_engg_group
-    level: CAN_MANAGE
-
     
