@@ -14,5 +14,5 @@ permissions:
     level: CAN_RUN
 
 include:
-  - resources/*.yml
+  - resources/jobs/*.yml
   - configs/*.yml
