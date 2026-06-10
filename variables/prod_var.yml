@@ -32,6 +32,9 @@ variables:
     max_worker:
         default: 16
 
+    serverless_cluster_type:
+        default: "PERFORMANCE_OPTIMIZED"
+
     success_alert_recipient:
         type: list
         default:
