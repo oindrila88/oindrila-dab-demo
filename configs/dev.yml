@@ -9,4 +9,4 @@ targets:
       include_path: "variables/dev_var.yml"
 
     presets:
-      name_prefix: "(dev ${workspace.current_user.short_name})"
+      name_prefix: "(${var.env}_${workspace.current_user.short_name})"
