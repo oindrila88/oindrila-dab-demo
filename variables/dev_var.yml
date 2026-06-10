@@ -1,0 +1,48 @@
+variables:
+    env:
+        default: "dev"
+
+    bronze_root_path:
+        default: "/Volumes/dev_oc_dab/dev_bronze/volume_bronze/"
+
+    silver_root_path:
+        default: "/Volumes/dev_oc_dab/dev_silver/volume_silver/"
+
+    gold_root_path:
+        default: "/Volumes/dev_oc_dab/dev_gold/volume_gold/"
+
+    csv_file_format:
+        default: "csv"
+
+    instance_policy_id:
+        default: "dev-policy-id-abcd"
+
+    instance_pool_id:
+        default: "dev-pool-id-1234"
+
+    cluster_node_type:
+        default: "Standard_D4s_v5"
+
+    spark_version:
+        default: "18.x-scala2.12"
+
+    min_worker:
+        default: 1
+
+    max_worker:
+        default: 4
+
+    success_alert_recipient:
+        type: list
+        default:
+            - "oindrila.chakraborty2988@gmail.com"
+            - "soumyajyoti.bagchi@gmail.com"
+
+    failure_alert_recipient:
+        type: list
+        default:
+            - "oindrila.chakraborty88@gmail.com"
+            - "soumyajyoti.bagchi@yahoo.com"
+
+    paused_status:
+        default: "PAUSED"

@@ -1,0 +1,63 @@
+resources:
+  jobs:
+    jb_person_etl:
+      name: "[${bundle.var.env}] Person ETL Workflow"
+
+      # Limit Parallel Executions of this Workflow
+      max_concurrent_runs: 1
+
+      # Automated Schedule Setup with Environment Variable
+      schedule:
+        quartz_cron_expression: "0 30 0 ? * MON-FRI" # Mon-Fri 12:30AM UTC
+        timezone_id: "UTC"
+        pause_status: ${bundle.var.paused_status}
+
+      # Global Dynamic Job Alerts Configuration
+      email_notifications:
+        # Send Alert Only When the Entire Workflow Finishes Successfully
+        on_sucess: ${bundle.var.success_alert_recipient}
+        # Send Alert When Any Task Fails that Causes the Entire Workflow to Fail
+        on_failure: ${bundle.var.failure_alert_recipient}
+
+        # Customize the Email Body Text Using Databricks Runtime Tokens
+        # Supported Tokens Include - {{JOB_ID}}, {{JOB_NAME}}, {{RUN_ID}}, {{WORKSPACE_URL}}, {{ERROR_MESSAGE}}
+        custom_body: |
+          Hello Team,
+
+          The Databricks Workflow execution loop has completed. Please find the details below:
+
+          - Environment: ${bundle.var.env}
+          - Job ID: [[JOB_ID]]
+          - Job Name: [[JOB_NAME]]
+          - Run ID: [[RUN_ID]]
+          - Execution Link: [[WORKSPACE_URL]]#job/[[JOB_ID]]/run/[[RUN_ID]]
+            
+          ---------------------------------------------------------------------------------------------
+          SYSTEM FAULT SNAPSHOT (Applicable on Failures Only): [[ERROR_MESSAGE]]
+          ---------------------------------------------------------------------------------------------
+
+          Regards,
+          Data Engineering Team
+
+      # Define a Shared Job Cluster that Uses the Cluster Pool with Autoscaling Enabled
+      job_clusters:
+        - job_cluster_key: shared_autoscaling_pool_cluster
+          new_cluster:
+            policy_id: ${bundle.var.instance_policy_id}
+            instance_pool_id: ${bundle.var.instance_pool_id}
+            node_type_id: ${bundle.var.cluster_node_type}
+            spark_version: ${bundle.var.spark_version}
+            # Enable Autoscaling Bounded by Environment Variables
+            autoscaling:
+              min_workers: ${bundle.var.min_worker}
+              max_workers: ${bundle.var.max_worker}
+
+      # Define Tasks and the Execution Order
+      tasks:
+        # Task 1: Set Up Catalogs and Volumes (Runs First)
+        - task_key: tsk_set_up
+          job_cluster_key: shared_autoscaling_pool_cluster
+          notebook_task:
+            notebook_path: "../notebooks/common/ddl/nbk_set_up.ipnyb"
+            base_parameters:
+              env: ${bundle.var.env}
