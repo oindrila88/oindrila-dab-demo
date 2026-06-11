@@ -3,9 +3,9 @@ bundle:
 
 # Define the Custom Variable at the Top Level
 variables:
-  include_path:
-    description: "Path for Top Level Inclusions"
-    default: "variables/*.yml"
+  config_file_path:
+    description: "Path to the Environment Variable File for Top Level Inclusions for Safe Default Fallback"
+    default: "variables/dev_var.yml"
 
 include:
   - resources/jobs/*.yml
