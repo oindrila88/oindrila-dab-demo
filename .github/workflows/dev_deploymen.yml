@@ -38,12 +38,15 @@ jobs:
       - name: Load Environment Variables
         # Read YAML, convert to BUNDLE_VAR_key=value format, and append to GITHUB_ENV
         run: |
-          yq eval '. | to_entries | .[] | .key + " " + (.value | tostring)' variables/dev_var.yml | while read -r key value; do
-            echo "BUNDLE_VAR_${key}<<EOF" >> $GITHUB_ENV
-            echo "$value" >> $GITHUB_ENV
-            echo "EOF" >> $GITHUB_ENV
+          # 1. Output as 'key base64_encoded_value'
+          yq eval '. | to_entries | .[] | .key + " " + (.value | tostring | @base64)' variables/dev_var.yml | while read -r key b64_value; do
+            
+          # 2. Decode the value back to plain text inside the loop
+          value=$(echo "$b64_value" | base64 --decode)
+            
+          echo "Successfully parsed key: $key"
+          echo "The nested payload is: $value"
           done
-          echo "All environment vars ${{ toJson(vars) }}
 
       # Step 4
       # Safely display all variables as a JSON block
