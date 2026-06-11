@@ -4,7 +4,7 @@ targets:
     default: false
     workspace:
       host: "https://dbc-fabed7ba-6bdf.cloud.databricks.com/"
-      root_path: "/prod/${bundle.name}"
+      root_path: "/Workspace/Shared/bundles/${bundle.name}"
 
     variables:
       include_path: "../variables/prod_var.yml"
