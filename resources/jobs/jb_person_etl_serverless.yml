@@ -30,5 +30,6 @@ resources:
         - task_key: tsk_set_up
           notebook_task:
             notebook_path: "../notebooks/common/ddl/nbk_set_up.ipnyb"
+            source: "BUNDLE"
             base_parameters:
               env: ${var.env}

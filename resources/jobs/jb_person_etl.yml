@@ -39,5 +39,6 @@ resources:
           job_cluster_key: shared_autoscaling_pool_cluster
           notebook_task:
             notebook_path: "../notebooks/common/ddl/nbk_set_up.ipnyb"
+            source: "BUNDLE"
             base_parameters:
               env: ${var.env}
