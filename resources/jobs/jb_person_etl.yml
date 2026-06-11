@@ -10,27 +10,27 @@ resources:
       schedule:
         quartz_cron_expression: "0 30 0 ? * MON-FRI" # Mon-Fri 12:30AM UTC
         timezone_id: "UTC"
-        pause_status: ${var.config_file_path.paused_status}
+        pause_status: ${var.paused_status}
 
       # Global Dynamic Job Alerts Configuration
       email_notifications:
         # Send Alert Only When the Entire Workflow Finishes Successfully
-        on_success: ${var.config_file_path.success_alert_recipient}
+        on_success: ${var.success_alert_recipient}
         # Send Alert When Any Task Fails that Causes the Entire Workflow to Fail
-        on_failure: ${var.config_file_path.failure_alert_recipient}
+        on_failure: ${var.failure_alert_recipient}
 
       # Define a Shared Job Cluster that Uses the Cluster Pool with Autoscaling Enabled
       # job_clusters:
       #   - job_cluster_key: shared_autoscaling_pool_cluster
       #     new_cluster:
-      #       policy_id: ${var.config_file_path.instance_policy_id}
-      #       instance_pool_id: ${var.config_file_path.instance_pool_id}
-      #       node_type_id: ${var.config_file_path.cluster_node_type}
-      #       spark_version: ${var.config_file_path.spark_version}
+      #       policy_id: ${var.instance_policy_id}
+      #       instance_pool_id: ${var.instance_pool_id}
+      #       node_type_id: ${var.cluster_node_type}
+      #       spark_version: ${var.spark_version}
       #       # Enable Autoscaling Bounded by Environment Variables
       #       autoscale:
-      #         min_workers: ${var.config_file_path.min_worker}
-      #         max_workers: ${var.config_file_path.max_worker}
+      #         min_workers: ${var.min_worker}
+      #         max_workers: ${var.max_worker}
 
       # Define Tasks and the Execution Order
       tasks:
@@ -42,6 +42,6 @@ resources:
             source: "WORKSPACE"
             base_parameters:
               env: ${var.env}
-              bronze_root_path: ${var.config_file_path.bronze_root_path}
-              silver_root_path: ${var.config_file_path.silver_root_path}
-              gold_root_path: ${var.config_file_path.gold_root_path}
+              bronze_root_path: ${var.bronze_root_path}
+              silver_root_path: ${var.silver_root_path}
+              gold_root_path: ${var.gold_root_path}
