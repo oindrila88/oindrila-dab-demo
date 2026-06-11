@@ -41,7 +41,7 @@ jobs:
       - name: Load Environment Variables
         # Read YAML, convert to BUNDLE_VAR_key=value format, and append to GITHUB_ENV
         run: |
-          yq eval '. | to_entries | .[] | "BUNDLE_VAR_" + .key + "=" + (.value | tostring)' variables/dev_var.yml >> $GITHUB_ENV
+          yq eval '. | to_entries | .[] | "BUNDLE_VAR_" + .key + "=" + (.value | to_json)' variables/dev_var.yml >> $GITHUB_ENV
 
       # Step 4
       - name: Validate Databricks Asset Bundles
