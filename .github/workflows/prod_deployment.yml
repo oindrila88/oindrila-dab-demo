@@ -32,6 +32,15 @@ jobs:
           version: 1.2.1
 
       # Step 3
+      - name: Inject Configuration to DAB Overrides
+        run: |
+          # Create the exact override directory DAB expects for that target
+          mkdir -p .databricks/bundle/prod
+          
+          # Copy your JSON into the variable-overrides file
+          cp variables/prod_var.json .databricks/bundle/prod/variable-overrides.json
+
+      # Step 4
       - name: Validate Databricks Asset Bundles
         # Executes a Terminal command, i.e., "databricks bundle validate", which reads the "databricks.yml" Configuration file and validates the Databricks Asset Bundles (DABs) to check the syntax, structure, and references of the configuration files before deployment.
         # It is a local dry-run command that ensures that the project is error-free, and, prevents failed deployments to the target Databricks Workspace, i.e., prod
@@ -44,7 +53,7 @@ jobs:
         run: |
           databricks bundle validate -t prod
 
-      # Step 4
+      # Step 5
       - name: Deploy Databricks Asset Bundles
         # Defines the Environment Variables for Shell to utilize
         env:

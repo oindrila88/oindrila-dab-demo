@@ -5,9 +5,6 @@ targets:
     workspace:
       host: "https://dbc-e23f01cd-de6d.cloud.databricks.com/"
 
-    variables:
-      include_path: "../variables/dev_var.yml"
-
     presets:
       name_prefix: "dev_${workspace.current_user.short_name}_"
     

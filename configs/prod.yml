@@ -6,9 +6,6 @@ targets:
       host: "https://dbc-fabed7ba-6bdf.cloud.databricks.com/"
       root_path: "/Workspace/Shared/bundles/${bundle.name}"
 
-    variables:
-      include_path: "../variables/prod_var.yml"
-
     permissions:
       - user_name: "oindrila.chakraborty2988@gmail.com"
         level: CAN_MANAGE

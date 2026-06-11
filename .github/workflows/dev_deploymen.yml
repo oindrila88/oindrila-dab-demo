@@ -32,11 +32,13 @@ jobs:
           version: 1.2.1
 
       # Step 3
-      - name: Parse YAML Variables to JSON
-        # Convert the selected environment based (here, dev) YAML file into a JSON var file
-        # GitHub runners come with yq pre-installed
+      - name: Inject Configuration to DAB Overrides
         run: |
-          yq eval -o=json variables/dev_var.yml > vars.json
+          # Create the exact override directory DAB expects for that target
+          mkdir -p .databricks/bundle/dev
+          
+          # Copy your JSON into the variable-overrides file
+          cp variables/dev_var.json .databricks/bundle/dev/variable-overrides.json
 
       # Step 4
       - name: Validate Databricks Asset Bundles
