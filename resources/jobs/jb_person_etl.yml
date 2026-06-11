@@ -20,23 +20,23 @@ resources:
         on_failure: ${var.failure_alert_recipient}
 
       # Define a Shared Job Cluster that Uses the Cluster Pool with Autoscaling Enabled
-      job_clusters:
-        - job_cluster_key: shared_autoscaling_pool_cluster
-          new_cluster:
-            policy_id: ${var.instance_policy_id}
-            instance_pool_id: ${var.instance_pool_id}
-            node_type_id: ${var.cluster_node_type}
-            spark_version: ${var.spark_version}
-            # Enable Autoscaling Bounded by Environment Variables
-            autoscale:
-              min_workers: ${var.min_worker}
-              max_workers: ${var.max_worker}
+      # job_clusters:
+      #   - job_cluster_key: shared_autoscaling_pool_cluster
+      #     new_cluster:
+      #       policy_id: ${var.instance_policy_id}
+      #       instance_pool_id: ${var.instance_pool_id}
+      #       node_type_id: ${var.cluster_node_type}
+      #       spark_version: ${var.spark_version}
+      #       # Enable Autoscaling Bounded by Environment Variables
+      #       autoscale:
+      #         min_workers: ${var.min_worker}
+      #         max_workers: ${var.max_worker}
 
       # Define Tasks and the Execution Order
       tasks:
         # Task 1: Set Up Catalogs and Volumes (Runs First)
         - task_key: tsk_set_up
-          job_cluster_key: shared_autoscaling_pool_cluster
+          #job_cluster_key: shared_autoscaling_pool_cluster
           notebook_task:
             notebook_path: "../notebooks/common/ddl/nbk_set_up.ipynb"
             source: "WORKSPACE"
