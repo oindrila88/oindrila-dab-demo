@@ -17,7 +17,7 @@ resources:
         # Send Alert Only When the Entire Workflow Finishes Successfully
         on_success: ${var.success_alert_recipient}
         # Send Alert When Any Task Fails that Causes the Entire Workflow to Fail
-        on_failure: ${var.fail_alert_recipient}
+        #on_failure: ${var.failure_alert_recipient}
 
       # "performance_target" is Used to Toggle "Optimization Modes" in Serverless Cluster, Which Can Also Reduce Costs :
       # 1. STANDARD - Cost Optimized, but, Slower Start
