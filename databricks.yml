@@ -5,8 +5,9 @@ bundle:
 variables:
   include_path:
     description: "Path to the Environment Variable File for Top Level Inclusions for Safe Default Fallback"
-    default: "variables/*.yml"
+    default: "variables/dev_var.yml"
 
 include:
   - resources/jobs/*.yml
+  - variables/*.yml
   - configs/*.yml
