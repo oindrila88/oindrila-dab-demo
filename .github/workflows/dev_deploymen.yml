@@ -15,6 +15,9 @@ jobs:
     # Tells GitHub to run this Job on a Linux Virtual Machine
     runs-on: ubuntu-latest
 
+    # Explicitly declare the environment name here
+    environment: dev
+
     # List of sequential steps to execute
     steps:
       # Step 1
@@ -32,12 +35,6 @@ jobs:
           version: 1.2.1
 
       # Step 3
-      #- name: Parse YAML Variables to JSON
-        # Convert the selected environment based (here, dev) YAML file into a JSON var file
-        # GitHub runners come with yq pre-installed
-        #run: |
-          #yq eval -o=json variables/dev_var.yml > vars.json
-
       - name: Load Environment Variables
         # Read YAML, convert to BUNDLE_VAR_key=value format, and append to GITHUB_ENV
         run: |
@@ -49,6 +46,12 @@ jobs:
           echo "All environment vars ${{ toJson(vars) }}
 
       # Step 4
+      # Safely display all variables as a JSON block
+      - name: Display all the "dev" environment variables
+        run: |
+          echo "All environment variables : ${{toJson(vars)}}"
+
+      # Step 5
       - name: Validate Databricks Asset Bundles
         # Executes a Terminal command, i.e., "databricks bundle validate", which reads the "databricks.yml" Configuration file and validates the Databricks Asset Bundles (DABs) to check the syntax, structure, and references of the configuration files before deployment.
         # It is a local dry-run command that ensures that the project is error-free, and, prevents failed deployments to the target Databricks Workspace, i.e., dev
@@ -61,7 +64,7 @@ jobs:
         run: |
           databricks bundle validate -t dev
 
-      # Step 5
+      # Step 6
       - name: Deploy Databricks Asset Bundles
         # Defines the Environment Variables for Shell to utilize
         env:
