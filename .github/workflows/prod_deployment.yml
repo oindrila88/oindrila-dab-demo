@@ -32,16 +32,18 @@ jobs:
           version: 1.2.1
 
       # Step 3
-      - name: Parse YAML Variables to JSON
-        # Convert the selected environment based (here, prod) YAML file into a JSON var file
-        # GitHub runners come with yq pre-installed
+      - name: Inject Configuration to DAB Overrides
         run: |
-          yq eval -o=json variables/prod_var.yml > vars.json
+          # Create the exact override directory DAB expects for that target
+          mkdir -p .databricks/bundle/prod
+          
+          # Copy your JSON into the variable-overrides file
+          cp variables/prod_var.json .databricks/bundle/prod/variable-overrides.json
 
       # Step 4
       - name: Validate Databricks Asset Bundles
         # Executes a Terminal command, i.e., "databricks bundle validate", which reads the "databricks.yml" Configuration file and validates the Databricks Asset Bundles (DABs) to check the syntax, structure, and references of the configuration files before deployment.
-        # It is a local dry-run command that ensures that the project is error-free, and, prevents failed deployments to the target Databricks Workspace, i.e., main
+        # It is a local dry-run command that ensures that the project is error-free, and, prevents failed deployments to the target Databricks Workspace, i.e., prod
         # This forces the runner to jump into the root folder before executing the validate command
         env:
         # URL to the target Databricks Workspace
@@ -59,8 +61,6 @@ jobs:
           DATABRICKS_HOST: ${{secrets.PROD_DBR_HOST}}
           # Secure Authentication Token that grants the Databricks CLI permision to make changes in the target Databricks Workspace
           DATABRICKS_TOKEN: ${{secrets.PROD_DBR_TOKEN}}
-        # Executes a Terminal command, i.e., "databricks bundle deploy", which reads the "databricks.yml" Configuration file and deploys the Databricks Asset Bundles (DABs) to the specified target environment, i.e., main
-        # Executes a Terminal command, i.e., "databricks bundle deploy", which reads the "databricks.yml" Configuration file and deploys the Databricks Asset Bundles (DABs) to the specified target environment, i.e., dev
-        # Use --var-file to inject the parsed JSON keys into the target bundle setup
+        # Executes a Terminal command, i.e., "databricks bundle deploy", which reads the "databricks.yml" Configuration file and deploys the Databricks Asset Bundles (DABs) to the specified target environment, i.e., prod
         run: |
-          databricks bundle deploy -t prod --var-file=vars.json
+          databricks bundle deploy -t prod
