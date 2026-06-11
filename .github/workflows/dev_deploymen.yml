@@ -46,6 +46,7 @@ jobs:
             echo "$value" >> $GITHUB_ENV
             echo "EOF" >> $GITHUB_ENV
           done
+          echo "All environment vars ${{ toJson(vars) }}
 
       # Step 4
       - name: Validate Databricks Asset Bundles
