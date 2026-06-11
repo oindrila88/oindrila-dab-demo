@@ -3,7 +3,7 @@ name: Deploy to Prod Databricks
 
 # Tells GitHub when to execute this Workflow
 on:
-  # Ensures that this Deployment Workflow only triggers when a successful PUSH is made directly to the 'prod' branch
+  # Ensures that this Deployment Workflow only triggers when a successful PUSH is made directly to the 'main' branch
   push:
     branches:
       - main
@@ -51,7 +51,7 @@ jobs:
           # Secure Authentication Token that grants the Databricks CLI permision to make changes in the target Databricks Workspace
           DATABRICKS_TOKEN: ${{secrets.PROD_DBR_TOKEN}}
         run: |
-          databricks bundle validate -t main
+          databricks bundle validate -t prod
 
       # Step 5
       - name: Deploy Databricks Asset Bundles

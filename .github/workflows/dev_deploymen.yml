@@ -39,7 +39,7 @@ jobs:
           
           # Copy your JSON into the variable-overrides file
           cp variables/dev_var.json .databricks/bundle/dev/variable-overrides.json
-        
+
       # Step 4
       - name: Validate Databricks Asset Bundles
         # Executes a Terminal command, i.e., "databricks bundle validate", which reads the "databricks.yml" Configuration file and validates the Databricks Asset Bundles (DABs) to check the syntax, structure, and references of the configuration files before deployment.
@@ -62,5 +62,6 @@ jobs:
           # Secure Authentication Token that grants the Databricks CLI permision to make changes in the target Databricks Workspace
           DATABRICKS_TOKEN: ${{secrets.DEV_DBR_TOKEN}}
         # Executes a Terminal command, i.e., "databricks bundle deploy", which reads the "databricks.yml" Configuration file and deploys the Databricks Asset Bundles (DABs) to the specified target environment, i.e., dev
+        # Use --var-file to inject the parsed JSON keys into the target bundle setup
         run: |
-          databricks bundle deploy -t dev
+          databricks bundle deploy -t dev --var-file=vars.json
