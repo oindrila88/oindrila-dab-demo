@@ -36,12 +36,12 @@ jobs:
         id: set-vars
         # Read YAML, convert to BUNDLE_VAR_key=value format, and append to GITHUB_ENV
         run: |
-          JSON_FILE = "variables/dev_var.json"
+          JSON_FILE="variables/dev_var.json"
           
           echo "Reading configuration from $JSON_FILE"
           
           # Parse each key-value pair and format it into GITHUB_ENV as BUNDLE_VAR_key=value
-          # The jq expression reads "variables/dev_var.json" and prints out lines like BUNDLE_VAR_env = env.
+          # The jq expression reads "variables/dev_var.json" and prints out lines like BUNDLE_VAR_env=env.
            # Writing these pairs into $GITHUB_ENV turns them into environment variables available to subsequent workflow steps.
           jq -r 'to_entries | .[] | "BUNDLE_VAR_\(.key)=\(.value)"' "$JSON_FILE" >> $GITHUB_ENV
         shell: bash
