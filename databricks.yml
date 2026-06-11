@@ -1,7 +1,12 @@
 bundle:
   name: oc_dab
 
+# Define the Custom Variable at the Top Level
+variables:
+  include_path:
+    description: "Path to the Environment Variable File for Top Level Inclusions for Safe Default Fallback"
+    default: "variables/*.yml"
+
 include:
   - resources/jobs/*.yml
-  - variables/*.yml
   - configs/*.yml
