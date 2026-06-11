@@ -1,0 +1,23 @@
+{
+    "env": "prod",
+    "bronze_root_path": "/Volumes/prod_oc_dab/prod_bronze/volume_bronze/",
+    "silver_root_path": "/Volumes/prod_oc_dab/prod_silver/volume_silver/",
+    "gold_root_path": "/Volumes/prod_oc_dab/prod_gold/volume_gold/",
+    "csv_file_format": "csv",
+    "instance_policy_id": "prod-policy-id-efgh",
+    "instance_pool_id": "prod-pool-id-5678",
+    "cluster_node_type": "Standard_D8s_v5",
+    "spark_version": "17.3.x-scala2.12",
+    "min_worker": 2,
+    "max_worker": 16,
+    "serverless_cluster_type": "PERFORMANCE_OPTIMIZED",
+    "success_alert_recipient": [
+        "miakayuki2011@gmail.com",
+        "soumyajyoti.bagchi@gmail.com"
+    ],
+    "failure_alert_recipient": [
+        "oindrila.chakraborty@genpact.com",
+        "soumyajyoti.bagchi@capgemini.com"
+    ],
+    "paused_status": "UNPAUSED"
+}
