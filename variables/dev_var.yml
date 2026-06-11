@@ -36,13 +36,13 @@ variables:
         default: "STANDARD"
 
     success_alert_recipient:
-        type: list
+        type: complex
         default:
             - "oindrila.chakraborty2988@gmail.com"
             - "soumyajyoti.bagchi@gmail.com"
 
     failure_alert_recipient:
-        type: list
+        type: complex
         default:
             - "oindrila.chakraborty88@gmail.com"
             - "soumyajyoti.bagchi@yahoo.com"

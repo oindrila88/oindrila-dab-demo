@@ -36,13 +36,13 @@ variables:
         default: "PERFORMANCE_OPTIMIZED"
 
     success_alert_recipient:
-        type: list
+        type: complex
         default:
             - "miakayuki2011@gmail.com"
             - "soumyajyoti.bagchi@gmail.com"
 
     failure_alert_recipient:
-        type: list
+        type: complex
         default:
             - "oindrila.chakraborty@genpact.com"
             - "soumyajyoti.bagchi@capgemini.com"
