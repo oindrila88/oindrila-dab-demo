@@ -38,7 +38,7 @@ resources:
         - task_key: tsk_set_up
           job_cluster_key: shared_autoscaling_pool_cluster
           notebook_task:
-            notebook_path: "../notebooks/common/ddl/nbk_set_up.ipnyb"
+            notebook_path: "../notebooks/common/ddl/nbk_set_up.ipynb"
             source: "WORKSPACE"
             base_parameters:
               env: ${var.env}
