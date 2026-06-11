@@ -32,19 +32,13 @@ jobs:
           version: 1.2.1
 
       # Step 3
-      - name: Read JSON and Export Bundle Variables
-        id: set-vars
-        # Read YAML, convert to BUNDLE_VAR_key=value format, and append to GITHUB_ENV
+      - name: Inject Configuration to DAB Overrides
         run: |
-          JSON_FILE="variables/dev_var.json"
+          # Create the exact override directory DAB expects for that target
+          mkdir -p .databricks/bundle/dev
           
-          echo "Reading configuration from $JSON_FILE"
-          
-          # Parse each key-value pair and format it into GITHUB_ENV as BUNDLE_VAR_key=value
-          # The jq expression reads "variables/dev_var.json" and prints out lines like BUNDLE_VAR_env=env.
-           # Writing these pairs into $GITHUB_ENV turns them into environment variables available to subsequent workflow steps.
-          jq -r 'to_entries | .[] | "BUNDLE_VAR_\(.key)=\(.value)"' "$JSON_FILE" >> $GITHUB_ENV
-        shell: bash
+          # Copy your JSON into the variable-overrides file
+          cp variables/dev_var.json .databricks/bundle/dev/variable-overrides.json
         
       # Step 4
       - name: Validate Databricks Asset Bundles
@@ -69,5 +63,4 @@ jobs:
           DATABRICKS_TOKEN: ${{secrets.DEV_DBR_TOKEN}}
         # Executes a Terminal command, i.e., "databricks bundle deploy", which reads the "databricks.yml" Configuration file and deploys the Databricks Asset Bundles (DABs) to the specified target environment, i.e., dev
         run: |
-          # When the Databricks CLI runs, it auto-detects BUNDLE_VAR_env and instantly overrides the ${var.env} parameter token in the job YAML.
           databricks bundle deploy -t dev
