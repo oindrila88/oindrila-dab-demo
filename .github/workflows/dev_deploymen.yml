@@ -62,5 +62,7 @@ jobs:
         # Executes a Terminal command, i.e., "databricks bundle deploy", which reads the "databricks.yml" Configuration file and deploys the Databricks Asset Bundles (DABs) to the specified target environment, i.e., dev
         # Executes a Terminal command, i.e., "databricks bundle deploy", which reads the "databricks.yml" Configuration file and deploys the Databricks Asset Bundles (DABs) to the specified target environment, i.e., dev
         # Use --var-file to inject the parsed JSON keys into the target bundle setup
+        # Parse the JSON file and export them as environment variables inline
         run: |
+          eval $(jq -r 'to_entries | .[] | "export BUNDLE_VAR_\(.key)=\"\(.value)\""' vars.json)
           databricks bundle deploy -t dev --var-file=vars.json
