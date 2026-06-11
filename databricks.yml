@@ -7,12 +7,6 @@ variables:
     description: "Path for Top Level Inclusions"
     default: "variables/*.yml"
 
-permissions:
-  - user_name: "oindrila.chakraborty88@gmail.com"
-    level: CAN_MANAGE
-  - user_name: "oindrila.chakraborty88@gmail.com"
-    level: CAN_RUN
-
 include:
   - resources/jobs/*.yml
   - variables/*.yml
