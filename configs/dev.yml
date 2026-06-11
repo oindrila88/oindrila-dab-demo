@@ -9,7 +9,7 @@ targets:
       include_path: "../variables/dev_var.yml"
 
     presets:
-      name_prefix: "(dev_${workspace.current_user.short_name})"
+      name_prefix: "(dev_)"
     
     permissions:
       - user_name: "oindrila.chakraborty88@gmail.com"

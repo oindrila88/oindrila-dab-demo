@@ -1,5 +1,6 @@
 targets:
   prod:
+    mode: production
     default: false
     workspace:
       host: "https://dbc-fabed7ba-6bdf.cloud.databricks.com/"
