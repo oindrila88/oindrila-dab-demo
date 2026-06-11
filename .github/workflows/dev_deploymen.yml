@@ -37,6 +37,7 @@ jobs:
         # It is a local dry-run command that ensures that the project is error-free, and, prevents failed deployments to the target Databricks Workspace, i.e., dev
         # This forces the runner to jump into the root folder before executing the validate command
         working-directory: .
+        env:
         # URL to the target Databricks Workspace
           DATABRICKS_HOST: ${{secrets.DEV_DBR_HOST}}
           # Secure Authentication Token that grants the Databricks CLI permision to make changes in the target Databricks Workspace
