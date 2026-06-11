@@ -1,6 +1,12 @@
 bundle:
   name: oc_dab
 
+# Define the Custom Variable at the Top Level
+variables:
+  include_path:
+    description: "Path for Top Level Inclusions"
+    default: "variables/*.yml"
+
 permissions:
   - user_name: "oindrila.chakraborty88@gmail.com"
     level: CAN_MANAGE
