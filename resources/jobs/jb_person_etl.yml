@@ -42,3 +42,6 @@ resources:
             source: "WORKSPACE"
             base_parameters:
               env: ${var.env}
+              bronze_root_path: ${var.bronze_root_path}
+              silver_root_path: ${var.silver_root_path}
+              gold_root_path: ${var.gold_root_path}
