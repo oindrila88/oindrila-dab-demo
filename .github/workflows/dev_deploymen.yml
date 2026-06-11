@@ -32,17 +32,17 @@ jobs:
           version: 1.2.1
 
       # Step 3
-      #- name: Validate Databricks Asset Bundles
+      - name: Validate Databricks Asset Bundles
         # Executes a Terminal command, i.e., "databricks bundle validate", which reads the "databricks.yml" Configuration file and validates the Databricks Asset Bundles (DABs) to check the syntax, structure, and references of the configuration files before deployment.
         # It is a local dry-run command that ensures that the project is error-free, and, prevents failed deployments to the target Databricks Workspace, i.e., dev
         # This forces the runner to jump into the root folder before executing the validate command
-        #env:
+        env:
         # URL to the target Databricks Workspace
-          #DATABRICKS_HOST: ${{secrets.DEV_DBR_HOST}}
+          DATABRICKS_HOST: ${{secrets.DEV_DBR_HOST}}
           # Secure Authentication Token that grants the Databricks CLI permision to make changes in the target Databricks Workspace
-          #DATABRICKS_TOKEN: ${{secrets.DEV_DBR_TOKEN}}
-        #run: |
-          #databricks bundle validate -t dev
+          DATABRICKS_TOKEN: ${{secrets.DEV_DBR_TOKEN}}
+        run: |
+          databricks bundle validate -t dev
 
       # Step 4
       - name: Deploy Databricks Asset Bundles
