@@ -10,19 +10,19 @@ resources:
       schedule:
         quartz_cron_expression: "0 30 0 ? * MON-FRI" # Mon-Fri 12:30AM UTC
         timezone_id: "UTC"
-        pause_status: ${var.paused_status}
+        pause_status: ${var.config_file_path.paused_status}
 
       # Global Dynamic Job Alerts Configuration
       email_notifications:
         # Send Alert Only When the Entire Workflow Finishes Successfully
-        on_success: ${var.success_alert_recipient}
+        on_success: ${var.config_file_path.success_alert_recipient}
         # Send Alert When Any Task Fails that Causes the Entire Workflow to Fail
-        on_failure: ${var.failure_alert_recipient}
+        on_failure: ${var.config_file_path.failure_alert_recipient}
 
       # "performance_target" is Used to Toggle "Optimization Modes" in Serverless Cluster, Which Can Also Reduce Costs :
       # 1. STANDARD - Cost Optimized, but, Slower Start
       # 2. PERFORMANCE_OPTIMIZED - Faster Execution and Warm Up Nodes Available, but Comparatively Costlier Than STANDARD
-      performance_target: ${var.serverless_cluster_type}
+      performance_target: ${var.config_file_path.serverless_cluster_type}
 
       # Define Tasks and the Execution Order
       tasks:
@@ -33,6 +33,6 @@ resources:
             source: "WORKSPACE"
             base_parameters:
               env: ${var.env}
-              bronze_root_path: ${var.bronze_root_path}
-              silver_root_path: ${var.silver_root_path}
-              gold_root_path: ${var.gold_root_path}
+              bronze_root_path: ${var.config_file_path.bronze_root_path}
+              silver_root_path: ${var.config_file_path.silver_root_path}
+              gold_root_path: ${var.config_file_path.gold_root_path}
