@@ -42,7 +42,7 @@ jobs:
           # Secure Authentication Token that grants the Databricks CLI permision to make changes in the target Databricks Workspace
           DATABRICKS_TOKEN: ${{secrets.PROD_DBR_TOKEN}}
         run: |
-          databricks bundle validate -t dev
+          databricks bundle validate -t main
 
       # Step 4
       - name: Deploy Databricks Asset Bundles

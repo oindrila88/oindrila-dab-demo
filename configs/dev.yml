@@ -10,3 +10,9 @@ targets:
 
     presets:
       name_prefix: "(dev_${workspace.current_user.short_name})"
+    
+    permissions:
+      - user_name: "oindrila.chakraborty88@gmail.com"
+        level: CAN_MANAGE
+      - user_name: "oindrila.chakraborty88@gmail.com"
+        level: CAN_RUN
