@@ -32,11 +32,16 @@ jobs:
           version: 1.2.1
 
       # Step 3
-      - name: Parse YAML Variables to JSON
+      #- name: Parse YAML Variables to JSON
         # Convert the selected environment based (here, dev) YAML file into a JSON var file
         # GitHub runners come with yq pre-installed
+        #run: |
+          #yq eval -o=json variables/dev_var.yml > vars.json
+
+      - name: Load Environment Variables
+        # Read YAML, convert to BUNDLE_VAR_key=value format, and append to GITHUB_ENV
         run: |
-          yq eval -o=json variables/dev_var.yml > vars.json
+          yq eval '. | to_entries | .[] | "BUNDLE_VAR_" + .key + "=" + (.value | tostring)' variables/dev_var.yml >> $GITHUB_ENV
 
       # Step 4
       - name: Validate Databricks Asset Bundles
@@ -60,9 +65,5 @@ jobs:
           # Secure Authentication Token that grants the Databricks CLI permision to make changes in the target Databricks Workspace
           DATABRICKS_TOKEN: ${{secrets.DEV_DBR_TOKEN}}
         # Executes a Terminal command, i.e., "databricks bundle deploy", which reads the "databricks.yml" Configuration file and deploys the Databricks Asset Bundles (DABs) to the specified target environment, i.e., dev
-        # Executes a Terminal command, i.e., "databricks bundle deploy", which reads the "databricks.yml" Configuration file and deploys the Databricks Asset Bundles (DABs) to the specified target environment, i.e., dev
-        # Use --var-file to inject the parsed JSON keys into the target bundle setup
-        # Parse the JSON file and export them as environment variables inline
         run: |
-          eval $(jq -r 'to_entries | .[] | "export BUNDLE_VAR_\(.key)=\"\(.value)\""' vars.json)
-          databricks bundle deploy -t dev --var-file=vars.json
+          databricks bundle deploy -t dev
